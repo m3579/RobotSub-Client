@@ -2,7 +2,9 @@ import http.client
 import urllib.parse
 import msvcrt as visual_cpp
 
-conn = http.client.HTTPConnection("127.0.0.1:9000")
+# The actual server is robotsub.herokuapp.com
+
+conn = http.client.HTTPConnection("robotsub.herokuapp.com")
 
 key_mapping = {"w": "forward", "a": "left", "s": "backward", "d": "right"}
 

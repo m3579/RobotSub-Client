@@ -18,7 +18,7 @@ namespace EV3Side
         /// <summary>
         /// The object representing the EV3
         /// </summary>
-        private Brick<Sensor, Sensor, Sensor, Sensor> ev3;
+        //private Brick<Sensor, Sensor, Sensor, Sensor> ev3;
 
         /// <summary>
         /// A string representing a COM port that the EV3 will
@@ -30,7 +30,7 @@ namespace EV3Side
         /// The IP address or domain name of the server that will
         /// inform us when we need to move the robot.
         /// </summary>
-        private const string SERVER_ADDRESS = "127.0.0.1:9000";
+        private const string SERVER_ADDRESS = "robotsub.herokuapp.com:9000";
 
         /// <summary>
         /// The GET URL for the GET requests that we will make to
@@ -90,29 +90,29 @@ namespace EV3Side
         /// </summary>
         private void InitEV3()
         {
-            comPort = GetCOMPort();
+            //comPort = GetCOMPort();
 
-            ev3 = new Brick<Sensor, Sensor, Sensor, Sensor>(comPort);
+            //ev3 = new Brick<Sensor, Sensor, Sensor, Sensor>(comPort);
 
-            try
-            {
-                ev3.Connection.Open();
+            //try
+            //{
+            //    ev3.Connection.Open();
 
-                ev3.Vehicle.LeftPort = LEFT_PORT;
-                ev3.Vehicle.RightPort = RIGHT_PORT;
+            //    ev3.Vehicle.LeftPort = LEFT_PORT;
+            //    ev3.Vehicle.RightPort = RIGHT_PORT;
 
-                ev3.Vehicle.ReverseLeft = false;
-                ev3.Vehicle.ReverseRight = false;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine();
-                Console.WriteLine("ERROR ERROR ERROR ERROR");
-                Console.WriteLine("Error: " + ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("Press any key to end...");
-                Console.ReadKey();
-            }
+            //    ev3.Vehicle.ReverseLeft = false;
+            //    ev3.Vehicle.ReverseRight = false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine();
+            //    Console.WriteLine("ERROR ERROR ERROR ERROR");
+            //    Console.WriteLine("Error: " + ex.Message);
+            //    Console.WriteLine(ex.StackTrace);
+            //    Console.WriteLine("Press any key to end...");
+            //    Console.ReadKey();
+            //}
         }
 
         /// <summary>
@@ -178,69 +178,69 @@ namespace EV3Side
                     // TODO: this is only for testing
                     continue;
 
-                    switch (responseString)
-                    {
-                        case MOVEMENT_FORWARD:
-                            {
-                                if (currentMovement != MOVEMENT_FORWARD)
-                                {
-                                    ev3.Vehicle.Forward(SPEED);
-                                }
+                    //switch (responseString)
+                    //{
+                    //    case MOVEMENT_FORWARD:
+                    //        {
+                    //            if (currentMovement != MOVEMENT_FORWARD)
+                    //            {
+                    //                ev3.Vehicle.Forward(SPEED);
+                    //            }
 
-                                break;
-                            }
-
-
-                        case MOVEMENT_RIGHT:
-                            {
-                                if (currentMovement != MOVEMENT_RIGHT)
-                                {
-                                    ev3.Vehicle.SpinRight(SPEED);
-                                }
-
-                                break;
-                            }
+                    //            break;
+                    //        }
 
 
-                        case MOVEMENT_LEFT:
-                            {
-                                if (currentMovement != MOVEMENT_LEFT)
-                                {
-                                    ev3.Vehicle.SpinLeft(SPEED);
-                                }
+                    //    case MOVEMENT_RIGHT:
+                    //        {
+                    //            if (currentMovement != MOVEMENT_RIGHT)
+                    //            {
+                    //                ev3.Vehicle.SpinRight(SPEED);
+                    //            }
 
-                                break;
-                            }
+                    //            break;
+                    //        }
 
-                        case MOVEMENT_BACKWARD:
-                            {
-                                if (currentMovement != MOVEMENT_BACKWARD)
-                                {
-                                    ev3.Vehicle.Backward(SPEED);
-                                }
 
-                                break;
-                            }
+                    //    case MOVEMENT_LEFT:
+                    //        {
+                    //            if (currentMovement != MOVEMENT_LEFT)
+                    //            {
+                    //                ev3.Vehicle.SpinLeft(SPEED);
+                    //            }
 
-                        case MOVEMENT_NONE:
-                            {
-                                if (currentMovement != MOVEMENT_NONE)
-                                {
-                                    // TODO: see if this should be
-                                    // ev3.Vehicle.Brake()
-                                    ev3.Vehicle.Off();
-                                }
+                    //            break;
+                    //        }
 
-                                break;
-                            }
+                    //    case MOVEMENT_BACKWARD:
+                    //        {
+                    //            if (currentMovement != MOVEMENT_BACKWARD)
+                    //            {
+                    //                ev3.Vehicle.Backward(SPEED);
+                    //            }
 
-                        default:
-                            {
-                                Console.WriteLine("Unrecognized movement: " + responseString);
+                    //            break;
+                    //        }
 
-                                break;
-                            }
-                    }
+                    //    case MOVEMENT_NONE:
+                    //        {
+                    //            if (currentMovement != MOVEMENT_NONE)
+                    //            {
+                    //                // TODO: see if this should be
+                    //                // ev3.Vehicle.Brake()
+                    //                ev3.Vehicle.Off();
+                    //            }
+
+                    //            break;
+                    //        }
+
+                    //    default:
+                    //        {
+                    //            Console.WriteLine("Unrecognized movement: " + responseString);
+
+                    //            break;
+                    //        }
+                    //}
                 }
             }
         }

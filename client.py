@@ -10,7 +10,9 @@
 
 import http.client
 
-conn = http.client.HTTPConnection("127.0.0.1:9000")
+# The actual server is robotsub.herokuapp.com
+
+conn = http.client.HTTPConnection("robotsub.herokuapp.com")
 
 while True:
     conn.request("GET", "/movement")
