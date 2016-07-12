@@ -1,0 +1,9 @@
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\EV3Side.exe.config
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\EV3Side.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\EV3Side.pdb
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\MonoBrick.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\LibUsbDotNet.dll
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\bin\Debug\MonoBrick.xml
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\obj\Debug\EV3Side.csprojResolveAssemblyReference.cache
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\obj\Debug\EV3Side.exe
+C:\Users\Mihir Kasmalkar\Documents\_Programs\RobotSub\EV3Side\EV3Side\obj\Debug\EV3Side.pdb
