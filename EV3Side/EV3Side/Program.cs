@@ -18,7 +18,7 @@ namespace EV3Side
         /// <summary>
         /// The object representing the EV3
         /// </summary>
-        //private Brick<Sensor, Sensor, Sensor, Sensor> ev3;
+        private Brick<Sensor, Sensor, Sensor, Sensor> ev3;
 
         /// <summary>
         /// A string representing a COM port that the EV3 will
@@ -30,7 +30,7 @@ namespace EV3Side
         /// The IP address or domain name of the server that will
         /// inform us when we need to move the robot.
         /// </summary>
-        private const string SERVER_ADDRESS = "robotsub.herokuapp.com:9000";
+        private const string SERVER_ADDRESS = "robotsub.herokuapp.com";
 
         /// <summary>
         /// The GET URL for the GET requests that we will make to
@@ -164,6 +164,16 @@ namespace EV3Side
 
             using (HttpClient client = new HttpClient())
             {
+                // The "current movement" variable in the server is only reset to "none" after
+                // a GET. So if I closed this app before closing the user's command-entering-app
+                // and the user entered a command, that command would be stored in the
+                // server until I GETed it (for example, if after I closed this app, the user
+                // entered a "forward" command, then even if I GETed from the server after a day that forward
+                // command would still be there to run forward).
+                // This GET is to clear the "current movement" variable in the server so that a command
+                // entered after this app was closed does not take effect.
+                await client.GetStringAsync("http://" + SERVER_ADDRESS + GET_REQUEST_URL);
+
                 string currentMovement = MOVEMENT_NONE;
 
                 while (true)
@@ -178,69 +188,69 @@ namespace EV3Side
                     // TODO: this is only for testing
                     continue;
 
-                    //switch (responseString)
-                    //{
-                    //    case MOVEMENT_FORWARD:
-                    //        {
-                    //            if (currentMovement != MOVEMENT_FORWARD)
-                    //            {
-                    //                ev3.Vehicle.Forward(SPEED);
-                    //            }
+                    switch (responseString)
+                    {
+                        case MOVEMENT_FORWARD:
+                            {
+                                if (currentMovement != MOVEMENT_FORWARD)
+                                {
+                                    ev3.Vehicle.Forward(SPEED);
+                                }
 
-                    //            break;
-                    //        }
-
-
-                    //    case MOVEMENT_RIGHT:
-                    //        {
-                    //            if (currentMovement != MOVEMENT_RIGHT)
-                    //            {
-                    //                ev3.Vehicle.SpinRight(SPEED);
-                    //            }
-
-                    //            break;
-                    //        }
+                                break;
+                            }
 
 
-                    //    case MOVEMENT_LEFT:
-                    //        {
-                    //            if (currentMovement != MOVEMENT_LEFT)
-                    //            {
-                    //                ev3.Vehicle.SpinLeft(SPEED);
-                    //            }
+                        case MOVEMENT_RIGHT:
+                            {
+                                if (currentMovement != MOVEMENT_RIGHT)
+                                {
+                                    ev3.Vehicle.SpinRight(SPEED);
+                                }
 
-                    //            break;
-                    //        }
+                                break;
+                            }
 
-                    //    case MOVEMENT_BACKWARD:
-                    //        {
-                    //            if (currentMovement != MOVEMENT_BACKWARD)
-                    //            {
-                    //                ev3.Vehicle.Backward(SPEED);
-                    //            }
 
-                    //            break;
-                    //        }
+                        case MOVEMENT_LEFT:
+                            {
+                                if (currentMovement != MOVEMENT_LEFT)
+                                {
+                                    ev3.Vehicle.SpinLeft(SPEED);
+                                }
 
-                    //    case MOVEMENT_NONE:
-                    //        {
-                    //            if (currentMovement != MOVEMENT_NONE)
-                    //            {
-                    //                // TODO: see if this should be
-                    //                // ev3.Vehicle.Brake()
-                    //                ev3.Vehicle.Off();
-                    //            }
+                                break;
+                            }
 
-                    //            break;
-                    //        }
+                        case MOVEMENT_BACKWARD:
+                            {
+                                if (currentMovement != MOVEMENT_BACKWARD)
+                                {
+                                    ev3.Vehicle.Backward(SPEED);
+                                }
 
-                    //    default:
-                    //        {
-                    //            Console.WriteLine("Unrecognized movement: " + responseString);
+                                break;
+                            }
 
-                    //            break;
-                    //        }
-                    //}
+                        case MOVEMENT_NONE:
+                            {
+                                if (currentMovement != MOVEMENT_NONE)
+                                {
+                                    // TODO: see if this should be
+                                    // ev3.Vehicle.Brake()
+                                    ev3.Vehicle.Off();
+                                }
+
+                                break;
+                            }
+
+                        default:
+                            {
+                                Console.WriteLine("Unrecognized movement: " + responseString);
+
+                                break;
+                            }
+                    }
                 }
             }
         }

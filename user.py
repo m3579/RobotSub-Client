@@ -11,7 +11,10 @@ key_mapping = {"w": "forward", "a": "left", "s": "backward", "d": "right"}
 while True:
     char = visual_cpp.getch().decode()
 
-    if char not in key_mapping:
+    if char == " ":
+        conn.close()
+        break
+    elif char not in key_mapping:
         continue
     
     params = urllib.parse.urlencode({"movement": key_mapping[char]})
