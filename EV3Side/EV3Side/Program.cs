@@ -79,7 +79,7 @@ namespace EV3Side
         /// </summary>
         private void Go()
         {
-            //InitEV3();
+            InitEV3();
 
             StartListeningToServer().Wait();
         }
@@ -90,29 +90,29 @@ namespace EV3Side
         /// </summary>
         private void InitEV3()
         {
-            //comPort = GetCOMPort();
+            comPort = GetCOMPort();
 
-            //ev3 = new Brick<Sensor, Sensor, Sensor, Sensor>(comPort);
+            ev3 = new Brick<Sensor, Sensor, Sensor, Sensor>(comPort);
 
-            //try
-            //{
-            //    ev3.Connection.Open();
+            try
+            {
+                ev3.Connection.Open();
 
-            //    ev3.Vehicle.LeftPort = LEFT_PORT;
-            //    ev3.Vehicle.RightPort = RIGHT_PORT;
+                ev3.Vehicle.LeftPort = LEFT_PORT;
+                ev3.Vehicle.RightPort = RIGHT_PORT;
 
-            //    ev3.Vehicle.ReverseLeft = false;
-            //    ev3.Vehicle.ReverseRight = false;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine();
-            //    Console.WriteLine("ERROR ERROR ERROR ERROR");
-            //    Console.WriteLine("Error: " + ex.Message);
-            //    Console.WriteLine(ex.StackTrace);
-            //    Console.WriteLine("Press any key to end...");
-            //    Console.ReadKey();
-            //}
+                ev3.Vehicle.ReverseLeft = false;
+                ev3.Vehicle.ReverseRight = false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine("ERROR ERROR ERROR ERROR");
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Press any key to end...");
+                Console.ReadKey();
+            }
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace EV3Side
                         Console.WriteLine(responseString);
                     }
 
-                    // TODO: this is only for testing
-                    continue;
+                    // TODO: this continue is only for testing
+                    //continue;
 
                     switch (responseString)
                     {
