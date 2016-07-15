@@ -54,6 +54,11 @@ namespace EV3Side
         /// </summary>
         private const sbyte SPEED = 50;
 
+        /// <summary>
+        /// A flag for if the code should be running
+        /// </summary>
+        private bool running = true;
+
         // The following constants are strings representing
         // the ways that the robot can move. These same string values
         // are used throughout the EV3 side, user side, and the server.
@@ -63,6 +68,7 @@ namespace EV3Side
         private const string MOVEMENT_LEFT = "left";
         private const string MOVEMENT_BACKWARD = "backward";
         private const string MOVEMENT_NONE = "none";
+        private const string MOVEMENT_EXIT = "exit";
 
         /// <summary>
         /// The entry point into the application (although the actual
@@ -80,7 +86,7 @@ namespace EV3Side
         private void Go()
         {
             InitEV3();
-
+            
             StartListeningToServer().Wait();
         }
 
@@ -93,7 +99,7 @@ namespace EV3Side
             comPort = GetCOMPort();
 
             ev3 = new Brick<Sensor, Sensor, Sensor, Sensor>(comPort);
-
+            
             try
             {
                 ev3.Connection.Open();
@@ -162,7 +168,10 @@ namespace EV3Side
         {
             // TODO: handle when the connection has closed
 
-            using (HttpClient client = new HttpClient())
+            // TODO: handle an exception in this code
+            HttpClient client = new HttpClient();
+
+            try 
             {
                 // The "current movement" variable in the server is only reset to "none" after
                 // a GET. So if I closed this app before closing the user's command-entering-app
@@ -176,7 +185,7 @@ namespace EV3Side
 
                 string currentMovement = MOVEMENT_NONE;
 
-                while (true)
+                while (running)
                 {
                     string responseString = await client.GetStringAsync("http://" + SERVER_ADDRESS + GET_REQUEST_URL);
 
@@ -237,9 +246,16 @@ namespace EV3Side
                                 if (currentMovement != MOVEMENT_NONE)
                                 {
                                     // TODO: see if this should be
-                                    // ev3.Vehicle.Brake()
+                                    //ev3.Vehicle.Brake()
                                     ev3.Vehicle.Off();
                                 }
+
+                                break;
+                            }
+
+                        case MOVEMENT_EXIT:
+                            {
+                                running = false;
 
                                 break;
                             }
@@ -252,6 +268,12 @@ namespace EV3Side
                             }
                     }
                 }
+            }
+            finally
+            {
+                client.Dispose();
+                Console.WriteLine("Closed connection");
+                ev3.Connection.Close();
             }
         }
     }
