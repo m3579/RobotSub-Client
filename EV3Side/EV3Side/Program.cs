@@ -113,7 +113,7 @@ namespace EV3Side
             catch (Exception ex)
             {
                 Console.WriteLine();
-                Console.WriteLine("ERROR ERROR ERROR ERROR");
+                Console.WriteLine("ERROR ERROR ERROR ERROR (While opening connection)");
                 Console.WriteLine("Error: " + ex.Message);
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("Press any key to end...");
@@ -268,6 +268,15 @@ namespace EV3Side
                             }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Console.WriteLine("ERROR ERROR ERROR ERROR (While receiving/running commands)");
+                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine("Press any key to end...");
+                Console.ReadKey();
             }
             finally
             {
