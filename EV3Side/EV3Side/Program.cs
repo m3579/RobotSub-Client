@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -102,6 +102,11 @@ namespace EV3Side
             
             try
             {
+                if (ev3.Connection.IsConnected)
+                {
+                    ev3.Connection.Close();
+                }
+
                 ev3.Connection.Open();
 
                 ev3.Vehicle.LeftPort = LEFT_PORT;
@@ -204,6 +209,7 @@ namespace EV3Side
                                 if (currentMovement != MOVEMENT_FORWARD)
                                 {
                                     ev3.Vehicle.Forward(SPEED);
+                                    currentMovement = MOVEMENT_FORWARD;
                                 }
 
                                 break;
@@ -215,6 +221,7 @@ namespace EV3Side
                                 if (currentMovement != MOVEMENT_RIGHT)
                                 {
                                     ev3.Vehicle.SpinRight(SPEED);
+                                    currentMovement = MOVEMENT_RIGHT;
                                 }
 
                                 break;
@@ -226,6 +233,7 @@ namespace EV3Side
                                 if (currentMovement != MOVEMENT_LEFT)
                                 {
                                     ev3.Vehicle.SpinLeft(SPEED);
+                                    currentMovement = MOVEMENT_LEFT;
                                 }
 
                                 break;
@@ -236,6 +244,7 @@ namespace EV3Side
                                 if (currentMovement != MOVEMENT_BACKWARD)
                                 {
                                     ev3.Vehicle.Backward(SPEED);
+                                    currentMovement = MOVEMENT_BACKWARD;
                                 }
 
                                 break;
@@ -248,6 +257,7 @@ namespace EV3Side
                                     // TODO: see if this should be
                                     //ev3.Vehicle.Brake()
                                     ev3.Vehicle.Off();
+                                    currentMovement = MOVEMENT_NONE;
                                 }
 
                                 break;
@@ -282,7 +292,7 @@ namespace EV3Side
             {
                 client.Dispose();
                 ev3.Connection.Close();
-                
+
                 Console.WriteLine("Closed connection");
             }
         }
