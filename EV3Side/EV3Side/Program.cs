@@ -282,7 +282,7 @@ namespace EV3Side
             {
                 client.Dispose();
                 ev3.Connection.Close();
-
+                
                 Console.WriteLine("Closed connection");
             }
         }
